@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: rnd-angularjs
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: dimassulistyono
+Implementation-Vendor-Id: com.cxrus.rnd
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/rnd-angular7
+ /
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

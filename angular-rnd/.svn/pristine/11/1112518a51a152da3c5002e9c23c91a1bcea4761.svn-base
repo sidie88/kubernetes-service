@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-right">
+      <a class="btn btn-primary" routerLink="/member/add">Add New Member</a>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+      <div class="col-lg-12">
+        <p *ngIf="hasParams">
+          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <table datatable [dtOptions]="dtSettings" [dtTrigger]="dtTrigger" class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Birthdate</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of members; index as i">
+            <td scope="row">{{i+1}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.gender}}</td>
+            <td>{{member.birthdate | date:'dd MMM y'}}</td>
+            <td>
+              <a class="btn btn-primary" routerLink="/member/view/{{member.id}}">View</a>&nbsp;
+              <a class="btn btn-primary" routerLink="/member/edit/{{member.id}}">Edit</a>&nbsp;
+              <button class="btn btn-primary" (click)="delete(member.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
