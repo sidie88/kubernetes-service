@@ -145,5 +145,3 @@
 `git push origin/master`
 
 `git push origin master`
-
-`history >  command-kubernetes-angular-java.txt`
