@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app-pod
+  labels:
+    app: backend-app
+  namespace: tarsidi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+      - name: backend-app
+        image: sidie88/backend-service:java
+        env:
+        - name: MY_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: _JAVA_OPTIONS
+          value: |- 
+                  -Dspring.datasource.url=jdbc:mysql://nihilist-gnat-mysql.$(MY_NAMESPACE).svc.cluster.local:3306/tarsidi
+                  -Dspring.datasource.username=root
+                  -Dspring.datasource.password=root
+                  -Dspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+                  -Dspring.jpa.hibernate.ddl-auto=update
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+  namespace: tarsidi
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: backend-app

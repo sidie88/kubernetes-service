@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Member } from '../clazz/member';
 
-const endpoint = 'http://localhost:8080';
+const endpoint = 'http://backend-service.tarsidi.svc.cluster.local';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
