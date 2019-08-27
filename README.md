@@ -1,33 +1,16 @@
-`gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project microservices-248511`
-
-`kubectl cluster-info`kubectl get namespace`
+## Create Namespace
 
 `kubectl create ns tarsidi`
 
-`helm init`
+## Starting Helm
+`helm init --client-only`
 
-`kubectl -n kube-system create sa tiller`
-
-`kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller`
-
-`helm init --service-account tiller`
-
-`helm ls`
-
-`helm reset`
-
-`kubectl create serviceaccount --namespace kube-system tiller`
-
-`kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller`
-
-`kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'`
-
-`helm init --service-account tiller --upgrade`
-
+### Check Helm 
 `helm version`
 
 `helm ls`
 
+## Install mysql server
 `helm install stable/mysql --version 1.3.1 --namespace tarsidi --set mysqlRootPassword=root,mysqlDatabase=tarsidi`
 
 `kubectl get pods -n tarsidi`
@@ -40,12 +23,10 @@
 
 `kubectl get svc -n tarsidi`
 
-`helm search elastic`
-
-`helm install -n cd stable/jenkins -f jenkins/values.yaml --version 1.2.2 --wait`
-
+## Clone source code
 `git clone https://github.com/sidie88/kubernetes-service.git`
 
+## Build backend docker file
 `cd kubernetes-service/`
 
 `cd rnd-angular7/`
@@ -55,50 +36,30 @@
 `docker images`
 
 `nano Dockerfile`
-
-`docker search openjdk`
-
-`cd ~`
-
-`cd service-discovery-in-kubernetes/`
-
-`cd currency-exchange-service/`
-
-`cat Dockerfile `
-
-`cd ~`
-
-`cd kubernetes-service/`
-
-`cd rnd-angular7/`
-
-`cd ../`
-
-`cd rnd-angular7/`
-
-`nano Dockerfile `
 
 `docker image build -t sidie88/backend-service:java .`
 
 `kubectl get svc -n tarsidi`
 
-`docker images`
-
 `docker image prune`
+
+## Push backend image to docker hub
 
 `docker login`
 
-`docker images`
-
 `docker push sidie88/backend-service:java`
 
+## Deploy image to kubernetes cluster
+
 `kubectl apply -f backend-service.yaml `
+
+## Check log file on pod
 
 `kubectl get pods -n tarsidi`
 
 `kubectl logs --follow backend-app-pod-8b5ccc88c-bft6r -n tarsidi`
 
-`kubectl apply -f backend-service.yaml `
+## Build frontend docker file
 
 `cd ../`
 
@@ -108,9 +69,7 @@
 
 `docker image build -t sidie88/frontend:angular .`
 
-`kubectl get services -n tarsidi`
-
-`docker image build -t sidie88/frontend:angular .`
+## Push frontend image to docker hub
 
 `docker push sidie88/frontend:angular`
 
@@ -118,15 +77,17 @@
 
 `kubectl get pods -n tarsidi`
 
+## Deploy image to kubernetes cluster
+
 `kubectl apply -f frontend.yaml `
+
+## Check log file on pod
 
 `kubectl get pods -n tarsidi`
 
 `kubectl describe pods frontend-app-pod-d997b8b98-x8nvq -n tarsidi`
 
-`kubectl get pods -n tarsidi`
-
-`kubectl logs --follow frontend-app-pod-d997b8b98-x8nvq -n tarsidi`
+## Commit and push code to github
 
 `cd kubernetes-service/`
 
