@@ -11,11 +11,11 @@
 `helm ls`
 
 ## Install mysql server
-`helm install stable/mysql --version 1.3.1 --namespace tarsidi --set mysqlRootPassword=root,mysqlDatabase=tarsidi`
+`helm install -n tarsidi stable/mysql --version 1.3.1 --namespace tarsidi --set mysqlRootPassword=root,mysqlDatabase=tarsidi`
 
 `kubectl get pods -n tarsidi`
 
-`kubectl describe pods nihilist-gnat-mysql-5549998f86-t9bbk -n tarsidi`
+`kubectl describe pods mysql-YOUR_MYSQL_POD_NAME -n tarsidi`
 
 `kubectl get pods -n tarsidi`
 
