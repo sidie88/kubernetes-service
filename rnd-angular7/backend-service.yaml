@@ -25,7 +25,7 @@ spec:
               fieldPath: metadata.namespace
         - name: _JAVA_OPTIONS
           value: |- 
-                  -Dspring.datasource.url=jdbc:mysql://nihilist-gnat-mysql.$(MY_NAMESPACE).svc.cluster.local:3306/tarsidi
+                  -Dspring.datasource.url=jdbc:mysql://mysql.$(MY_NAMESPACE).svc.cluster.local:3306/tarsidi
                   -Dspring.datasource.username=root
                   -Dspring.datasource.password=root
                   -Dspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
