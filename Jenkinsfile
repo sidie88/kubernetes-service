@@ -23,12 +23,12 @@ node {
       }
   }
   stage('Update image tag') {
-    sshCommand remote: remote, command: " sed \"s/IMAGE_TAG/sidie88/backend-service/g\" "+
-        "kubernetes-service/rnd-angular7/backend-service.yaml > "+
+    sshCommand remote: remote, command:"sed \"s/IMAGE_TAG/sidie88\\/backend-service:$BUILD_TAG/g\" "+
+        "kubernetes-service/rnd-angular7/backend-service.yaml.bak > "+
         "kubernetes-service/rnd-angular7/backend-service.yaml"
   }
   stage('Deploy') {
-    sshCommand remote: remote, command: "kubectl -apply -f "+
+    sshCommand remote: remote, command: "kubectl apply -f "+
         "kubernetes-service/rnd-angular7/backend-service.yaml"
   }
 }
