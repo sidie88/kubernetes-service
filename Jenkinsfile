@@ -22,6 +22,11 @@ node {
 			"docker image push sidie88/backend-service:$BUILD_TAG"  
       }
   }
+  stage('Update image tag') {
+    sshCommand remote: remote, command: " sed \"s/IMAGE_TAG/sidie88/backend-service/g\" "+
+        "kubernetes-service/rnd-angular7/backend-service.yaml > "+
+        "kubernetes-service/rnd-angular7/backend-service.yaml"
+  }
   stage('Deploy') {
     sshCommand remote: remote, command: "kubectl -apply -f "+
         "kubernetes-service/rnd-angular7/backend-service.yaml"
